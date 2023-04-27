@@ -1,3 +1,4 @@
+from typing import List
 class Solution:
     def permute(self, l: List[int]) -> List[List[int]]:
         def dfs(path, used, res):
