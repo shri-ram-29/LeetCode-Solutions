@@ -6,7 +6,7 @@ class Solution:
             if remain == 0:
                 sol.append(comb.copy())
             else:
-                for i in range(nex, n+1):
+                for i in range(next, n+1):
                     comb.append(i)
                     backtrack(remain-1, comb, i+1)
                     comb.pop()
