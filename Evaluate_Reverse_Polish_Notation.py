@@ -1,15 +1,21 @@
-from math import trunc
-from typing import List
 class Solution:
     def evalRPN(self, tokens: List[str]) -> int:
         stack = []
-        for t in tokens:
-            if t not in {"+","-","*","/"}:
-                stack.append(int(t))
+        for token in tokens:
+            if token.isdigit() or (token[0] == '-' and token[1:].isdigit()):
+                stack.append(int(token))
             else:
-                a,b = stack.pop(),stack.pop()
-                if t == '+': stack.append(b+a)
-                elif t == '-': stack.append(b-a)
-                elif t == '*': stack.append(b*a)
-                else: stack.append(trunc(b/a))
-        return stack[0]
+                op2 = stack.pop()
+                op1 = stack.pop()
+                if token == '+':
+                    stack.append(op1 + op2)
+                elif token == '-':
+                    stack.append(op1 - op2)
+                elif token == '*':
+                    stack.append(op1 * op2)
+                elif token == '/':
+                    if op1*op2 < 0 and op1 % op2  != 0:
+                        stack.append(op1 // op2 + 1)
+                    else:
+                        stack.append(op1 // op2)
+            return stack[0]
